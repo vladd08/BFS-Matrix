@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>BFS_Processor</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="A\**" />
+    <EmbeddedResource Remove="A\**" />
+    <None Remove="A\**" />
+  </ItemGroup>
+
+</Project>

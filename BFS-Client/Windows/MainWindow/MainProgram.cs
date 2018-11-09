@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace CautareNivelCareu
+namespace BFSClient
 {
     static class MainProgram
     {

@@ -1,4 +1,4 @@
-﻿namespace CautareNivelCareu
+﻿namespace BFSClient
 {
     partial class MainWindow
     {
@@ -70,6 +70,7 @@
             this.MatrixInitBttn.TabIndex = 3;
             this.MatrixInitBttn.Text = "Initializeaza";
             this.MatrixInitBttn.UseVisualStyleBackColor = true;
+            this.MatrixInitBttn.Click += new System.EventHandler(this.MatrixInitBttn_Click);
             // 
             // MatrixSizeLabel
             // 

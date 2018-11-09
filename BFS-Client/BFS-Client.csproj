@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\InvalidOrNotExistentMatrixSizeException.cs" />
+    <Compile Include="Locales\Locales.cs" />
     <Compile Include="Windows\MainWindow\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -58,6 +60,11 @@
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\BFS-Processor\BFS.csproj">
+      <Project>{82ab3a43-fad7-4b23-9304-c5a67f3bbb9e}</Project>
+      <Name>BFS</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

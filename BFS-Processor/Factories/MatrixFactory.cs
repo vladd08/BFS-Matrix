@@ -3,6 +3,7 @@ using BFS.Classes;
 using BFS.Enums;
 using BFS.Exceptions;
 using BFS.Interfaces;
+using BFSClient.Exceptions;
 
 namespace BFS.Factories
 {
@@ -45,6 +46,28 @@ namespace BFS.Factories
                 default:
                     throw new InvalidMatrixElementTypeException(Message: Locales.Strings.InvalidMatrixElementType);
             }
+        }
+
+        public IMatrix InitializeMatrix(IMatrix matrix, int size)
+        {
+            if (size == 0)
+                throw new InvalidOrNotExistentMatrixSizeException(Message: Locales.Strings.InvalidMatrixSize);
+
+            List<IMatrixLine> lineList = new List<IMatrixLine>();
+            for (int i = 0; i < size; i++)
+            {
+                List<IMatrixElement> elementList = new List<IMatrixElement>();
+                for (int j = 0; j < size; j++)
+                {
+                    IMatrixElement matrixElement;
+                    matrixElement = CreateMatrixElement(MatrixElementType.Available, i, j);
+                    elementList.Add(matrixElement);
+                }
+                IMatrixLine matrixLine = CreateMatrixLine(elementList);
+                lineList.Add(matrixLine);
+            }
+            matrix = CreateMatrix(lineList);
+            return matrix;
         }
     }
 }

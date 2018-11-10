@@ -13,5 +13,15 @@ namespace BFS.Enums
         {
             MatrixInstance = new List<IMatrixLine>();
         }
+
+        public override string ToString()
+        {
+            string matrix = "";
+            for (var i = 0; i < MatrixInstance.Count; i++)
+            {
+                matrix += MatrixInstance[i].ToString();
+            }
+            return matrix;
+        }
     }
 }

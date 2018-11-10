@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using BFS.Interfaces;
 
 namespace BFS.Classes
@@ -10,6 +11,21 @@ namespace BFS.Classes
         internal MatrixLine()
         {
             Line = new List<IMatrixElement>();
+        }
+
+        public override string ToString()
+        {
+            string line = "";
+            for(var i = 0; i < Line.Count; i++)
+            {
+                line += Line[i].ToString();
+            }
+            return AppendNewlineToLine(line);
+        }
+
+        private string AppendNewlineToLine(string line)
+        {
+            return line += Environment.NewLine;
         }
     }
 }

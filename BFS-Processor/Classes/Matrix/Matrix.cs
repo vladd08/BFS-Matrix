@@ -24,9 +24,9 @@ namespace BFS.Enums
             if (!IsElementInRange(element))
                 throw new ElementOutOfRangeException(Locales.Strings.ElementOutOfRange);
 
-            if (!StartPositionSet && IsElementRobot(element))
+            if (!StartPositionSet && element.IsRobot())
                 StartPositionSet = true;
-            else if (StartPositionSet && IsElementRobot(element))
+            else if (StartPositionSet && element.IsRobot())
                 throw new StartPositionAlreadySetException(Locales.Strings.StartPositionAlreadySet);
 
             if (IsElementAlreadyMarked(element))
@@ -37,9 +37,7 @@ namespace BFS.Enums
 
         private bool IsElementInRange(IMatrixElement element) => element.X < Size && element.Y < Size && element.X >= 0 && element.Y >= 0;
 
-        private bool IsElementAlreadyMarked(IMatrixElement element) => MatrixInstance[element.X].Line[element.Y].GetType().Name != "AvailableMatrixElement";
-
-        private bool IsElementRobot(IMatrixElement element) => element.GetType().Name == "RobotMatrixElement";
+        private bool IsElementAlreadyMarked(IMatrixElement element) => !MatrixInstance[element.X].Line[element.Y].IsAvailable();
 
         public override string ToString()
         {

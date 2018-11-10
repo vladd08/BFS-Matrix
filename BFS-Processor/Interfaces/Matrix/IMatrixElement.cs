@@ -4,5 +4,8 @@
     {
         int X { get; set; }
         int Y { get; set; }
+        bool IsRobot();
+        bool IsAvailable();
+        bool IsDestination();
     }
 }

@@ -16,6 +16,18 @@ namespace BFS.Enums
             this.Y = Y;
         }
 
+        public bool IsAvailable()
+        {
+            return GetType().Name == "AvailableMatrixElement";
+        }
+        public bool IsRobot()
+        {
+            return GetType().Name == "RobotMatrixElement";
+        }
+        public bool IsDestination()
+        {
+            return GetType().Name == "DestinationMatrixElement";
+        }
         public override string ToString()
         {
             string type = this.GetType().Name;

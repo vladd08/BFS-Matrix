@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BFSClient.Exceptions
+namespace BFS.Exceptions
 {
     class InvalidOrNotExistentMatrixSizeException : Exception
     {

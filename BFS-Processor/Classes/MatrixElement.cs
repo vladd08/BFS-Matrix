@@ -4,7 +4,7 @@ namespace BFS.Enums
 {
     internal class MatrixElement : IMatrixElement
     {
-        private readonly string RobotElement = "      X       ";
+        private readonly string RobotElement = "      X      ";
         private readonly string AvailableElement = "      0      ";
         private readonly string DestinationElement = "      1      ";
         public int X { get; set; }

@@ -3,7 +3,6 @@ using BFS.Classes;
 using BFS.Enums;
 using BFS.Exceptions;
 using BFS.Interfaces;
-using BFSClient.Exceptions;
 
 namespace BFS.Factories
 {
@@ -50,7 +49,7 @@ namespace BFS.Factories
 
         public IMatrix InitializeMatrix(IMatrix matrix, int size)
         {
-            if (size == 0)
+            if (size == 0 || size == 1 || size < 0)
                 throw new InvalidOrNotExistentMatrixSizeException(Message: Locales.Strings.InvalidMatrixSize);
 
             List<IMatrixLine> lineList = new List<IMatrixLine>();

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace BFSClient
+namespace BFS
 {
     static class MainProgram
     {

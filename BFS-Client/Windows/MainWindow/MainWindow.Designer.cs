@@ -1,4 +1,4 @@
-﻿namespace BFSClient
+﻿namespace BFS
 {
     partial class MainWindow
     {
@@ -93,7 +93,7 @@
             this.MatrixDisplay.Location = new System.Drawing.Point(211, 12);
             this.MatrixDisplay.Name = "MatrixDisplay";
             this.MatrixDisplay.ReadOnly = true;
-            this.MatrixDisplay.Size = new System.Drawing.Size(472, 353);
+            this.MatrixDisplay.Size = new System.Drawing.Size(476, 353);
             this.MatrixDisplay.TabIndex = 1;
             this.MatrixDisplay.Text = "";
             // 
@@ -135,6 +135,7 @@
             this.SetStartPositionBttn.TabIndex = 3;
             this.SetStartPositionBttn.Text = "Plaseaza";
             this.SetStartPositionBttn.UseVisualStyleBackColor = true;
+            this.SetStartPositionBttn.Click += new System.EventHandler(this.SetStartPositionBttn_Click);
             // 
             // StartXLabel
             // 
@@ -190,6 +191,7 @@
             this.SetDestinationButton.TabIndex = 3;
             this.SetDestinationButton.Text = "Marcheaza";
             this.SetDestinationButton.UseVisualStyleBackColor = true;
+            this.SetDestinationButton.Click += new System.EventHandler(this.SetDestinationButton_Click);
             // 
             // DestinationXLabel
             // 

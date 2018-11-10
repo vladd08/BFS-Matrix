@@ -6,5 +6,6 @@ namespace BFS.Interfaces
     {
         List<IMatrixLine> MatrixInstance { get; set; }
         int Size { get; set; }
+        void SetMatrixElement(IMatrixElement element);
     }
 }

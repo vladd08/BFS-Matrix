@@ -1,11 +1,11 @@
 ﻿using System;
 
-namespace BFSClient.Exceptions
+namespace BFS.Exceptions
 {
-    class InvalidOrNotExistentMatrixSizeException : Exception
+    internal sealed class ElementOutOfRangeException : Exception
     {
         private new readonly string Message;
-        public InvalidOrNotExistentMatrixSizeException(string Message) : base(Message)
+        public ElementOutOfRangeException(string Message) : base(Message)
         {
             this.Message = Message;
         }

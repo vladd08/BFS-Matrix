@@ -25,7 +25,7 @@ namespace BFS.Classes
 
         private string AppendNewlineToLine(string line)
         {
-            return line += Environment.NewLine;
+            return line += Environment.NewLine + Environment.NewLine;
         }
     }
 }

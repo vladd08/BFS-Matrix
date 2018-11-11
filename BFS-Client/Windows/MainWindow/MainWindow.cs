@@ -105,7 +105,10 @@ namespace BFSClient
             }
 
             Graph = MatrixConverter.ConvertMatrixToGraph(Matrix);
-            DisplayGraph();
+            string BFSContent = Searcher.BFS(Graph.GetStartVertex(), Graph);
+            string Path = Searcher.ParseBFSDistances(Searcher.searcher.Distances);
+            BFSContent += Path;
+            DisplayGraphAndBFS(BFSContent);
         }
         private bool CanSearchRoute() => MatrixInit && StartSet && DestinationSet;
         private bool IsStartPositionEmpty() => StartXPos.Text != "" && StartYPos.Text != "";
@@ -119,9 +122,9 @@ namespace BFSClient
             DestinationYPos.Text = "";
         }
         private void DisplayMatrix() => MatrixDisplay.Text = Matrix.ToString();
-        private void DisplayGraph()
+        private void DisplayGraphAndBFS(string BFSContent)
         {
-            MatrixDisplay.Text = Matrix.ToString() + Graph.ToString();
+            MatrixDisplay.Text = Matrix.ToString() + Graph.ToString() + BFSContent;
         }
     }
 }

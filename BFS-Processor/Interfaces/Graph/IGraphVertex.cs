@@ -6,7 +6,6 @@ namespace BFS.Interfaces
     {
         IMatrixElement MatrixElement { get; set; }
         List<IGraphVertex> ConnectedVertices { get; set; }
-        bool Visited { get; set; }
-        bool IsVisited();
+        string ToMatrixElementString();
     }
 }

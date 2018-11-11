@@ -8,13 +8,11 @@ namespace BFS.Classes
     {
         public IMatrixElement MatrixElement { get; set; }
         public List<IGraphVertex> ConnectedVertices { get; set; }
-        public bool Visited { get; set; }
-        internal GraphVertex()
+        public bool Visited { get; set; }        internal GraphVertex()
         {
             ConnectedVertices = new List<IGraphVertex>();
             Visited = false;
         }
-        public bool IsVisited() => Visited;
         public override string ToString()
         {
             string vertexLines = Environment.NewLine;
@@ -26,6 +24,10 @@ namespace BFS.Classes
             }
             vertexLines += Environment.NewLine;
             return vertexLines;
+        }
+        public string ToMatrixElementString()
+        {
+            return "[" + MatrixElement.X + ", " + MatrixElement.Y + "]";
         }
     }
 }

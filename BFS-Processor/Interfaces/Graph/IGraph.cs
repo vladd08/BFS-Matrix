@@ -9,5 +9,6 @@ namespace BFS.Interfaces
         List<IGraphVertex> GetConnectedVertices(IGraphVertex vertex);
         IGraphVertex GetStartVertex();
         IGraphVertex GetGraphVertexFromNeighbourVertex(IGraphVertex neighbourVertex);
+        List<IGraphVertex> GetDestinationVertices();
     }
 }

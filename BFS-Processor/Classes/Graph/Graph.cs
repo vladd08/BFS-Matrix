@@ -31,6 +31,16 @@ namespace BFS.Classes
             }
             return new GraphVertex();
         }
+        public List<IGraphVertex> GetDestinationVertices()
+        {
+            List<IGraphVertex> destinationVertices = new List<IGraphVertex>();
+            foreach(IGraphVertex vertex in GraphInstance)
+            {
+                if (vertex.MatrixElement.IsDestination())
+                    destinationVertices.Add(vertex);
+            }
+            return destinationVertices;
+        }
         public override string ToString()
         {
             string graphLines = "Graph from matrix: ";

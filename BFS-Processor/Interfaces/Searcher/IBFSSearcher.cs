@@ -12,6 +12,6 @@ namespace BFS.Interfaces
         string ResultContent { get; set; }
         List<int> Distances { get; set; }
         List<IGraphVertex> Path { get; set; }
-        List<int> SearchUnweightedGraph();
+        void GetBFSTrackOfGraph(IGraphVertex startVertex);
     }
 }

@@ -3,6 +3,7 @@ using BFS.Factories;
 using BFS.Interfaces;
 using BFS.Utils;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace BFSClient
@@ -106,8 +107,13 @@ namespace BFSClient
 
             Graph = MatrixConverter.ConvertMatrixToGraph(Matrix);
             string BFSContent = Searcher.BFS(Graph.GetStartVertex(), Graph);
-            string Path = Searcher.ParseBFSDistances(Searcher.searcher.Distances);
-            BFSContent += Path;
+            List<IGraphVertex> BFSPath = Searcher.searcher.Path;
+            string pathResult = Environment.NewLine + "Path taken is: ";
+            foreach(IGraphVertex pathVertex in BFSPath)
+            {
+                pathResult += pathVertex.ToMatrixElementString() + " -> ";
+            }
+            BFSContent += pathResult + "Finish";
             DisplayGraphAndBFS(BFSContent);
         }
         private bool CanSearchRoute() => MatrixInit && StartSet && DestinationSet;

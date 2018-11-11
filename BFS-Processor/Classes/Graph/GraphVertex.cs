@@ -27,7 +27,7 @@ namespace BFS.Classes
         }
         public string ToMatrixElementString()
         {
-            return "[" + MatrixElement.X + ", " + MatrixElement.Y + "]";
+            return "[" + (MatrixElement.X + 1) + ", " + (MatrixElement.Y + 1) + "]";
         }
     }
 }

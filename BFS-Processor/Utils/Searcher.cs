@@ -12,7 +12,7 @@ namespace BFS.Utils
         public static string BFS(IGraphVertex startVertex, IGraph graph)
         {
             searcher = new BFSSearcher(startVertex, graph);
-            searcher.SearchUnweightedGraph();
+            searcher.GetBFSTrackOfGraph(startVertex);
             return searcher.ResultContent;
         }
         public static string ParseBFSDistances(List<int> Distances)

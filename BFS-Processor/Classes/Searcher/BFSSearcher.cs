@@ -1,4 +1,5 @@
-﻿using BFS.Interfaces;
+﻿using BFS.Factories;
+using BFS.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,78 +9,93 @@ namespace BFS.Classes
     internal sealed class BFSSearcher : IBFSSearcher
     {
         public IGraph Graph { get; set; }
-        public IGraphVertex StartVertex { get; set; }
-        public Stack<IGraphVertex> Queue { get; set; }
-        public List<int> Distances { get; set; }
+        public IGraphVertex InitialStartVertex { get; set; }
         public List<IGraphVertex> Path { get; set; }
-        public string ResultContent { get; set; }
-        private readonly int DISTANCE_UNIT = 1;
-        private readonly List<IGraphVertex> DestinationVertexes;
-        internal BFSSearcher(IGraphVertex startVertex, IGraph graph)
+        public List<IGraphVertex> DestinationVertices { get; set; }
+        private IMatrixFactory MatrixFactory;
+        internal BFSSearcher(IGraphVertex startVertex, List<IGraphVertex> destinationVertices, IGraph graph)
         {
+            InitialStartVertex = startVertex;
+            DestinationVertices = destinationVertices;
             Graph = graph;
-            StartVertex = startVertex;
-            Distances = new List<int>(Graph.GraphInstance.Count);
-            for (int i = 0; i < Graph.GraphInstance.Count; i++)
-                Distances.Add(-1);
-            int StartVertexIndex = Graph.GetIndexOfVertex(StartVertex);
-            Distances[StartVertexIndex] = 0;
+            MatrixFactory = new MatrixFactory();
             Path = new List<IGraphVertex>();
-            DestinationVertexes = Graph.GetDestinationVertices();
         }
-        public void GetBFSTrackOfGraph(IGraphVertex startVertex)
+        public void BFS()
         {
-            Queue = new Stack<IGraphVertex>(Graph.GraphInstance.Count);
+            List<IGraphVertex> route = GenerateRoute();
+            for (int i = 0; i < route.Count; i++)
+            {
+                List<IGraphVertex> path = new List<IGraphVertex>();
+
+                if (i + 1 == route.Count)
+                    return;
+
+                path = GetPathBetweenPoints(route[i], route[i + 1]);
+                foreach (IGraphVertex vertex in path)
+                    Path.Add(vertex);
+                
+            }
+        }
+        private List<IGraphVertex> GetPathBetweenPoints(IGraphVertex startVertex, IGraphVertex destinationVertex)
+        {
+            List<IGraphVertex> path = new List<IGraphVertex>();
+            Stack<IGraphVertex> Queue = CreateNewQueue();
             Queue.Push(startVertex);
+
             int StartVertexIndex = Graph.GetIndexOfVertex(startVertex);
-            Distances[StartVertexIndex] = 0;
-            ResultContent += Environment.NewLine + "BFS Track:";
+            List<bool> visited = CreateNewVisitedArray();
+            visited[StartVertexIndex] = true;
 
             while (Queue.Count != 0)
             {
-                ResultContent += Environment.NewLine;
-                ResultContent += "Queue: ";
-
-                foreach (IGraphVertex queueVertex in Queue)
-                {
-                    ResultContent += " " + queueVertex.ToMatrixElementString() + " ";
-                }
-
                 IGraphVertex vertex = Queue.Pop();
-                Path.Add(vertex);
+                path.Add(vertex);
 
-                ResultContent += Environment.NewLine;
-                ResultContent += "Looking at " + vertex.ToMatrixElementString() + "'s connected vertices:";
+                if (vertex.MatrixElement.IsDestination() && !vertex.Equals(startVertex))
+                    return path;
 
                 foreach (IGraphVertex neighbour in Graph.GetConnectedVertices(vertex))
                 {
                     IGraphVertex neighbourVertex = Graph.GetGraphVertexFromNeighbourVertex(neighbour);
-
-                    ResultContent += Environment.NewLine;
-                    ResultContent += vertex.ToMatrixElementString() + " is connected to " + neighbourVertex.ToMatrixElementString();
-
                     int indexOfNeighbourVertex = Graph.GetIndexOfVertex(neighbourVertex);
 
-                    if (Distances[indexOfNeighbourVertex] == -1)
+                    if (visited[indexOfNeighbourVertex] == false)
                     {
-                        ResultContent += Environment.NewLine;
-                        ResultContent += neighbourVertex.ToMatrixElementString() + " has no connections explored yet";
-                        ResultContent += Environment.NewLine;
-
-                        Distances[indexOfNeighbourVertex] = Distances[Graph.GetIndexOfVertex(vertex)] + DISTANCE_UNIT;
-                        ResultContent += "Adding it to queue ...";
+                        visited[indexOfNeighbourVertex] = true;
                         Queue.Push(neighbourVertex);
                     }
-                    else
-                    {
-                        ResultContent += Environment.NewLine;
-                        ResultContent += neighbourVertex.ToMatrixElementString() + " is fully explored.";
-                    }
-                    ResultContent += Environment.NewLine;
                 }
-                ResultContent += "--------------------------------------------------------------";
             }
-            ResultContent += Environment.NewLine + "FINISHED";
+            return path;
+        }
+        private Stack<IGraphVertex> CreateNewQueue() => new Stack<IGraphVertex>(Graph.GraphInstance.Count);
+        private List<bool> CreateNewVisitedArray()
+        {
+            List<bool> visitedArray = new List<bool>();
+            foreach (IGraphVertex vertex in Graph.GraphInstance)
+                visitedArray.Add(false);
+            return visitedArray;
+        }
+        private List<IGraphVertex> GenerateRoute()
+        {
+            List<IGraphVertex> route = new List<IGraphVertex>
+            {
+                InitialStartVertex
+            };
+            foreach (IGraphVertex vertex in DestinationVertices)
+                route.Add(vertex);
+            return route;
+        }
+        public string PathToString()
+        {
+            string path = Environment.NewLine;
+            foreach (IGraphVertex vertex in Path)
+            {
+                path += vertex.ToMatrixElementString() + " -> ";
+            }
+            path += "Finish";
+            return path;
         }
     }
 }

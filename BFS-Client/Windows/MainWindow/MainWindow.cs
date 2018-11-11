@@ -106,15 +106,8 @@ namespace BFSClient
             }
 
             Graph = MatrixConverter.ConvertMatrixToGraph(Matrix);
-            string BFSContent = Searcher.BFS(Graph.GetStartVertex(), Graph);
-            List<IGraphVertex> BFSPath = Searcher.searcher.Path;
-            string pathResult = Environment.NewLine + "Path taken is: ";
-            foreach(IGraphVertex pathVertex in BFSPath)
-            {
-                pathResult += pathVertex.ToMatrixElementString() + " -> ";
-            }
-            BFSContent += pathResult + "Finish";
-            DisplayGraphAndBFS(BFSContent);
+            string pathTaken = Searcher.BFS(Graph.GetStartVertex(), Graph.GetDestinationVertices(), Graph);
+            DisplayGraphAndBFS(pathTaken);
         }
         private bool CanSearchRoute() => MatrixInit && StartSet && DestinationSet;
         private bool IsStartPositionEmpty() => StartXPos.Text != "" && StartYPos.Text != "";
@@ -128,9 +121,9 @@ namespace BFSClient
             DestinationYPos.Text = "";
         }
         private void DisplayMatrix() => MatrixDisplay.Text = Matrix.ToString();
-        private void DisplayGraphAndBFS(string BFSContent)
+        private void DisplayGraphAndBFS(string pathTaken)
         {
-            MatrixDisplay.Text = Matrix.ToString() + Graph.ToString() + BFSContent;
+            MatrixDisplay.Text = Matrix.ToString() + Graph.ToString() + pathTaken;
         }
     }
 }

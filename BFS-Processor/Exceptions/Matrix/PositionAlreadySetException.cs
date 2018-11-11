@@ -2,10 +2,10 @@
 
 namespace BFS.Exceptions
 {
-    class PositionAlreadySetException : Exception
+    internal sealed class ElementAlreadySetException : Exception
     {
         private new readonly string Message;
-        public PositionAlreadySetException(string Message) : base(Message)
+        public ElementAlreadySetException(string Message) : base(Message)
         {
             this.Message = Message;
         }
@@ -15,10 +15,10 @@ namespace BFS.Exceptions
             return Message;
         }
     }
-    class StartPositionAlreadySetException : Exception
+    internal sealed class StartElementAlreadySetException : Exception
     {
         private new readonly string Message;
-        public StartPositionAlreadySetException(string Message) : base(Message)
+        public StartElementAlreadySetException(string Message) : base(Message)
         {
             this.Message = Message;
         }

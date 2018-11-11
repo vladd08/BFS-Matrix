@@ -1,4 +1,4 @@
-﻿namespace BFS.Enums
+﻿namespace BFS.Classes
 {
     internal sealed class DestinationMatrixElement : MatrixElement
     {

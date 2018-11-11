@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace BFS
+namespace BFSClient
 {
-    static class MainProgram
+    internal static class MainProgram
     {
         [STAThread]
         static void Main()

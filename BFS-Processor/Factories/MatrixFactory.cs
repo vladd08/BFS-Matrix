@@ -8,7 +8,6 @@ namespace BFS.Factories
 {
     public sealed class MatrixFactory : IMatrixFactory
     {
-
         public IMatrix CreateMatrix(List<IMatrixLine> lineList)
         {
             IMatrix matrix = new Matrix();
@@ -20,7 +19,6 @@ namespace BFS.Factories
             matrix.Size = lineList.Count;
             return matrix;
         }
-
         public IMatrixLine CreateMatrixLine(List<IMatrixElement> elementList)
         {
             IMatrixLine line = new MatrixLine();
@@ -31,7 +29,6 @@ namespace BFS.Factories
 
             return line;
         }
-
         public IMatrixElement CreateMatrixElement(MatrixElementType elementType, int X, int Y)
         {
             switch (elementType)
@@ -40,13 +37,14 @@ namespace BFS.Factories
                     return new AvailableMatrixElement(X, Y);
                 case MatrixElementType.Destination:
                     return new DestinationMatrixElement(X, Y);
-                case MatrixElementType.Robot:
-                    return new RobotMatrixElement(X, Y);
+                case MatrixElementType.Start:
+                    return new StartMatrixElement(X, Y);
+                case MatrixElementType.Empty:
+                    return new EmptyMatrixElement(X, Y);
                 default:
                     throw new InvalidMatrixElementTypeException(Message: Locales.Strings.InvalidMatrixElementType);
             }
         }
-
         public IMatrix InitializeMatrix(IMatrix matrix, int size)
         {
             if (size == 0 || size == 1 || size < 0)

@@ -1,4 +1,4 @@
-﻿namespace BFS
+﻿namespace BFSClient
 {
     partial class MainWindow
     {
@@ -45,6 +45,7 @@
             this.SetDestinationButton = new System.Windows.Forms.Button();
             this.DestinationXLabel = new System.Windows.Forms.Label();
             this.DestinationXPos = new System.Windows.Forms.TextBox();
+            this.SearchRouteBttn = new System.Windows.Forms.Button();
             this.MatrixInitGroup.SuspendLayout();
             this.StartPositionGroup.SuspendLayout();
             this.DestinationGroup.SuspendLayout();
@@ -209,6 +210,16 @@
             this.DestinationXPos.Size = new System.Drawing.Size(35, 20);
             this.DestinationXPos.TabIndex = 1;
             // 
+            // SearchRouteBttn
+            // 
+            this.SearchRouteBttn.Location = new System.Drawing.Point(111, 342);
+            this.SearchRouteBttn.Name = "SearchRouteBttn";
+            this.SearchRouteBttn.Size = new System.Drawing.Size(75, 23);
+            this.SearchRouteBttn.TabIndex = 6;
+            this.SearchRouteBttn.Text = "Cauta Ruta";
+            this.SearchRouteBttn.UseVisualStyleBackColor = true;
+            this.SearchRouteBttn.Click += new System.EventHandler(this.SearchRouteBttn_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -216,6 +227,7 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(699, 377);
+            this.Controls.Add(this.SearchRouteBttn);
             this.Controls.Add(this.DestinationGroup);
             this.Controls.Add(this.StartPositionGroup);
             this.Controls.Add(this.MatrixDisplay);
@@ -252,6 +264,7 @@
         private System.Windows.Forms.Button SetDestinationButton;
         private System.Windows.Forms.Label DestinationXLabel;
         private System.Windows.Forms.TextBox DestinationXPos;
+        private System.Windows.Forms.Button SearchRouteBttn;
     }
 }
 

@@ -1,40 +1,43 @@
 ﻿using BFS.Enums;
 using BFS.Factories;
 using BFS.Interfaces;
+using BFS.Utils;
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace BFS
+namespace BFSClient
 {
-    internal partial class MainWindow : Form
+    internal sealed partial class MainWindow : Form
     {
-        IMatrix matrix;
+        IMatrix Matrix;
+        IGraph Graph;
         IMatrixFactory MatrixFactory;
-        int matrixSize = 0;
-
+        bool StartSet = false;
+        bool DestinationSet = false;
+        bool MatrixInit = false;
         public MainWindow()
         {
             InitializeComponent();
             MatrixFactory = new MatrixFactory();
         }
-
         private void MatrixInitBttn_Click(object sender, EventArgs e)
         {
-            int.TryParse(MatrixSizeInput.Text, out matrixSize);
+            int.TryParse(MatrixSizeInput.Text, out int matrixSize);
 
             try
             {
-                matrix = MatrixFactory.InitializeMatrix(matrix, matrixSize);
+                Matrix = MatrixFactory.InitializeMatrix(Matrix, matrixSize);
                 EmptyFields();
                 DisplayMatrix();
+                MatrixInit = true;
+                StartSet = false;
+                DestinationSet = false;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
-
         private void SetStartPositionBttn_Click(object sender, EventArgs e)
         {
             if (!IsStartPositionEmpty())
@@ -52,18 +55,18 @@ namespace BFS
             int.TryParse(StartXPos.Text, out int xPosition);
             int.TryParse(StartYPos.Text, out int yPosition);
 
-            IMatrixElement robotElement = MatrixFactory.CreateMatrixElement(MatrixElementType.Robot, xPosition - 1, yPosition - 1);
             try
             {
-                matrix.SetMatrixElement(robotElement);
+                IMatrixElement startElement = MatrixFactory.CreateMatrixElement(MatrixElementType.Start, xPosition - 1, yPosition - 1);
+                Matrix.SetMatrixElement(startElement);
                 DisplayMatrix();
+                StartSet = true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
-
         private void SetDestinationButton_Click(object sender, EventArgs e)
         {
             if (!IsDestinationPositionEmpty())
@@ -84,28 +87,41 @@ namespace BFS
             IMatrixElement destinationElement = MatrixFactory.CreateMatrixElement(MatrixElementType.Destination, xPosition - 1, yPosition - 1);
             try
             {
-                matrix.SetMatrixElement(destinationElement);
+                Matrix.SetMatrixElement(destinationElement);
                 DisplayMatrix();
+                DestinationSet = true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
-        private void DisplayMatrix() => MatrixDisplay.Text = matrix.ToString();
+        private void SearchRouteBttn_Click(object sender, EventArgs e)
+        {
+            if (!CanSearchRoute())
+            {
+                MessageBox.Show(Locales.Strings.CantSearchRoute);
+                return;
+            }
 
+            Graph = MatrixConverter.ConvertMatrixToGraph(Matrix);
+            DisplayGraph();
+        }
+        private bool CanSearchRoute() => MatrixInit && StartSet && DestinationSet;
         private bool IsStartPositionEmpty() => StartXPos.Text != "" && StartYPos.Text != "";
-
         private bool IsDestinationPositionEmpty() => DestinationXPos.Text != "" && DestinationYPos.Text != "";
-
-        private bool IsMatrixInitialized() => matrix != null;
-
+        private bool IsMatrixInitialized() => Matrix != null;
         private void EmptyFields()
         {
             StartXPos.Text = "";
             StartYPos.Text = "";
             DestinationXPos.Text = "";
             DestinationYPos.Text = "";
+        }
+        private void DisplayMatrix() => MatrixDisplay.Text = Matrix.ToString();
+        private void DisplayGraph()
+        {
+            MatrixDisplay.Text = Matrix.ToString() + Graph.ToString();
         }
     }
 }

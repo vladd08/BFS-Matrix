@@ -4,6 +4,7 @@
     {
         Available = 0,
         Destination,
-        Robot
+        Start,
+        Empty
     }
 }

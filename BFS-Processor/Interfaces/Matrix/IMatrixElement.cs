@@ -7,5 +7,6 @@
         bool IsRobot();
         bool IsAvailable();
         bool IsDestination();
+        bool IsEmpty();
     }
 }
